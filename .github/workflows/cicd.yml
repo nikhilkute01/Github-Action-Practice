@@ -11,12 +11,14 @@ jobs:
       - name: Clone the code
         run: echo "Cloning"
   build:
+    needs: code
     runs-on: ubuntu-latest
     steps:
       - name: Building using docker
         run: echo "Building docker"
 
   test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Runnning tst case
@@ -24,6 +26,7 @@ jobs:
 
 
   deploy:
+    needs: [build,test]
     runs-on: ubuntu-latest
     steps:
       - name: Deployinhg machine
